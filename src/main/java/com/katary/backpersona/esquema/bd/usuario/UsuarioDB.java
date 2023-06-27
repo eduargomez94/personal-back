@@ -1,4 +1,4 @@
-package com.katary.backpersona.esquema.bd.codigo;
+package com.katary.backpersona.esquema.bd.usuario;
 
 import com.katary.backpersona.utiles.DBCoreService;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.katary.backpersona.esquema.bd.codigo.Consultas.SP_USUARIOS_SELECT;
+import static com.katary.backpersona.esquema.bd.usuario.Consultas.SP_USUARIOS_SELECT;
 
 @Service
 public class UsuarioDB {

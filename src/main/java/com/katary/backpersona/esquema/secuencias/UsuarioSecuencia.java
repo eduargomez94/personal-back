@@ -1,6 +1,6 @@
 package com.katary.backpersona.esquema.secuencias;
 
-import com.katary.backpersona.esquema.bd.codigo.UsuarioDB;
+import com.katary.backpersona.esquema.bd.usuario.UsuarioDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
