@@ -95,4 +95,36 @@ public class DBCoreService {
             throw err;
         }
     }
+    /**
+     * @param query:  String con la petición a ejecutar
+     * @param params: Array con los parámetros para parametrizar la petición
+     * @return JsonArray
+     */
+
+    public int ejecutarQuery(String query, Object[] params) throws SQLException {
+        int success = 0;
+        try (
+                Connection connection = MySqlCP.getDB().getConnection();
+                PreparedStatement statement = connection.prepareStatement(
+                        query,
+                        ResultSet.TYPE_FORWARD_ONLY,
+                        ResultSet.CONCUR_READ_ONLY
+                )
+        ) {
+            for (int i = 0; i < params.length; i++) {
+                statement.setObject(i + 1, params[i]);
+            }
+            ResultSet resultset = statement.executeQuery();
+
+            if (resultset.next()) {
+                success = resultset.getInt("result");
+            }
+            resultset.close();
+
+            return success;
+        } catch (Exception err) {
+            logger.warn(err.getMessage() + " -> " + query);
+            throw err;
+        }
+    }
 }

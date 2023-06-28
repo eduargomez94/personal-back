@@ -1,6 +1,5 @@
 package com.katary.backpersona.esquema.bd.credenciales;
 
-import com.katary.backpersona.esquema.entidades.Usuario;
 import com.katary.backpersona.utiles.DBCoreService;
 import com.katary.backpersona.utiles.SerializadorService;
 import org.springframework.stereotype.Service;
