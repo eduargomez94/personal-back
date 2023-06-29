@@ -1,23 +1,17 @@
 package com.katary.backpersona.esquema.bd.empleado;
-
 import com.katary.backpersona.utiles.DBCoreService;
 import org.springframework.stereotype.Service;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.katary.backpersona.esquema.bd.empleado.consultas.*;
-
-
+import static com.katary.backpersona.esquema.bd.empleado.Consultas.*;
 @Service
 public class EmpleadoDB {
     private final DBCoreService dbCoreService;
-
     public EmpleadoDB(DBCoreService dbCoreService) {
         this.dbCoreService = dbCoreService;
     }
-
     public int crearEmpleado(
             int id_empleado,
             int id_tipo_doc,
@@ -64,21 +58,18 @@ public class EmpleadoDB {
             String perfil_tecnico
     ) throws SQLException {
         Object[] parametros = new Object[]{id_empleado,id_tipo_doc,no_documento,apellidos,nombres,email_personal,email_corporativo,celular,direccion,id_ciudad,hoja_vida,fecha_cumpleanos,entidad_salud,entidad_pension,entidad_ARL,estado,fotografia,fecha_aniversario,perfil_tecnico};
-        return dbCoreService.ejecutarQuery(SP_EMPLEADO_UPDATE, parametros);
+        return dbCoreService.ejecutarQuery(SP_EMPLEADO_UPDATE_X_ID_EMPLEADO, parametros);
     }
     public ArrayList<HashMap<String, Object>> obtenerEmpleados() throws SQLException {
         Object[] parametros = new Object[]{};
         return dbCoreService.obtenerElementos(SP_EMPLEADO_SELECT, parametros);
     }
-
-    public HashMap<String, Object> obtenerEmpleado(int id) throws SQLException {
-        Object[] parametros = new Object[]{id};
+    public HashMap<String, Object> obtenerEmpleado(int id_empleado) throws SQLException {
+        Object[] parametros = new Object[]{id_empleado};
         return dbCoreService.obtenerElemento(SP_EMPLEADO_SELECT_X_ID_EMPLEADO, parametros);
     }
-    public HashMap<String, Object> borrarEmpleado(int id_empleado) throws SQLException {
+    public HashMap<String, Object> eliminarEmpleado(int id_empleado) throws SQLException {
         Object[] parametros = new Object[]{id_empleado};
         return dbCoreService.obtenerElemento(SP_EMPLEADO_DELETE_X_ID_EMPLEADO, parametros);
     }
-
-
 }

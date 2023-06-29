@@ -3,20 +3,16 @@ package com.katary.backpersona.esquema.secuencias;
 import com.katary.backpersona.esquema.bd.empleado.EmpleadoDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 @Service
 public class EmpleadoSecuencia {
     private final EmpleadoDB empleadoDB;
-
     @Autowired
     public EmpleadoSecuencia(EmpleadoDB empleadoDB) {
         this.empleadoDB = empleadoDB;
     }
-
     public int crearEmpleado(
             int id_empleado,
             int id_tipo_doc,
@@ -69,8 +65,8 @@ public class EmpleadoSecuencia {
     public HashMap<String, Object> obtenerEmpleado(int id_empleado) throws SQLException {
         return empleadoDB.obtenerEmpleado(id_empleado);
     }
-    public HashMap<String, Object> borrarEmpleado(int id_empleado) throws SQLException {
-        return empleadoDB.borrarEmpleado(id_empleado);
+    public HashMap<String, Object> eliminarEmpleado(int id_empleado) throws SQLException {
+        return empleadoDB.eliminarEmpleado(id_empleado);
     }
 }
 

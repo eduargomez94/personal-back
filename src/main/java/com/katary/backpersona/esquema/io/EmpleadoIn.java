@@ -1,7 +1,5 @@
 package com.katary.backpersona.esquema.io;
-
 import com.dslplatform.json.CompiledJson;
-
 public class EmpleadoIn {
     @CompiledJson
     public static class EmpleadoPOST {
@@ -24,10 +22,8 @@ public class EmpleadoIn {
         private String fotografia;
         private String fecha_aniversario;
         private String perfil_tecnico;
-
         public EmpleadoPOST() {
         }
-
         public boolean esInValido() {
             return  no_documento == null || no_documento.isEmpty()
                     || apellidos == null || apellidos.isEmpty()
@@ -48,11 +44,9 @@ public class EmpleadoIn {
                     || entidad_pension == 0
                     || entidad_ARL == 0;
         }
-
         public int getId_empleado() {
             return id_empleado;
         }
-
         public void setId_empleado(int id_empleado) {
             this.id_empleado = id_empleado;
         }
@@ -201,8 +195,6 @@ public class EmpleadoIn {
             this.perfil_tecnico = perfil_tecnico;
         }
     }
-
-
     @CompiledJson
     public static class EmpleadoPUT {
         private int id_empleado;

@@ -1,6 +1,4 @@
 package com.katary.backpersona.controladores;
-
-
 import com.katary.backpersona.esquema.io.EmpleadoIn;
 import com.katary.backpersona.esquema.secuencias.EmpleadoSecuencia;
 import com.katary.backpersona.esquema.secuencias.seguridad.SeguridadService;
@@ -21,14 +19,12 @@ public class EmpleadoController {
     private final FrameworkService fw;
     private final SeguridadService seguridadService;
     private final EmpleadoSecuencia empleadoSecuencia;
-
     @Autowired
     public EmpleadoController(FrameworkService fw, SeguridadService seguridadService, EmpleadoSecuencia empleadoSecuencia) {
         this.fw = fw;
         this.seguridadService = seguridadService;
         this.empleadoSecuencia = empleadoSecuencia;
     }
-
     @CrossOrigin
     @RequestMapping(
             value = "/v1/empleado",
@@ -80,7 +76,6 @@ public class EmpleadoController {
             consumes = "application/json"
     )
     public void actualizarEmpleado(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_empleado) throws IOException {
-
         EmpleadoIn.EmpleadoPUT body = fw.getBody(req, EmpleadoIn.EmpleadoPUT.class);
         if (body == null || body.esInValido()) {
             fw.sendBadRequestJSON(resp, body);
@@ -110,7 +105,6 @@ public class EmpleadoController {
                     body.getPerfil_tecnico()
                     );
             response.put("exito", codigo);
-
         } catch (Exception throwables) {
             throwables.printStackTrace();
             resp.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -165,16 +159,15 @@ public class EmpleadoController {
             value = "/v1/empleado/{id_empleado}",
             method = RequestMethod.DELETE
     )
-    public void borrarEmpleado(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_empleado) throws IOException {
+    public void eliminarEmpleado(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_empleado) throws IOException {
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            response = empleadoSecuencia.borrarEmpleado(id_empleado);
+            response = empleadoSecuencia.eliminarEmpleado(id_empleado);
         } catch (Exception throwables) {
             throwables.printStackTrace();
             resp.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
             if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
         }
         fw.sendJSON(resp, response);
-
     }
 }
