@@ -170,4 +170,67 @@ public class EmpleadoController {
         }
         fw.sendJSON(resp, response);
     }
+    @CrossOrigin
+    @RequestMapping(
+            value = "/v1/tipos-documentos",
+            method = RequestMethod.GET
+    )
+    public void obtenerTiposDocumentos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            ArrayList<HashMap<String, Object>> success = empleadoSecuencia.obtenerTiposDocumentos();
+            if (success.isEmpty()) {
+                fw.sendNotFound(resp);
+                return;
+            }
+            response.put("data", success);
+            fw.sendJSON(resp, response);
+        } catch (Exception throwables) {
+            fw.sendErrorJSON(resp, throwables, null);
+            if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
+        }
+    }
+    @CrossOrigin
+    @RequestMapping(
+            value = "/v1/ciudades/{id_depto}",
+            method = RequestMethod.GET
+    )
+    public void obtenerCiudades(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_depto) throws IOException {
+
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            ArrayList<HashMap<String, Object>> success = empleadoSecuencia.obtenerCiudades(id_depto);
+            if (success.isEmpty()) {
+                fw.sendNotFound(resp);
+                return;
+            }
+            response.put("data", success);
+            fw.sendJSON(resp, response);
+        } catch (Exception throwables) {
+            fw.sendErrorJSON(resp, throwables, null);
+            if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
+        }
+    }
+    @CrossOrigin
+    @RequestMapping(
+            value = "/v1/departamentos",
+            method = RequestMethod.GET
+    )
+    public void obtenerDepartamentos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            ArrayList<HashMap<String, Object>> success = empleadoSecuencia.obtenerDepartamentos();
+            if (success.isEmpty()) {
+                fw.sendNotFound(resp);
+                return;
+            }
+            response.put("data", success);
+            fw.sendJSON(resp, response);
+        } catch (Exception throwables) {
+            fw.sendErrorJSON(resp, throwables, null);
+            if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
+        }
+    }
 }

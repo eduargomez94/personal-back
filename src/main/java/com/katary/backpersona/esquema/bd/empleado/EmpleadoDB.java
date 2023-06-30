@@ -72,4 +72,16 @@ public class EmpleadoDB {
         Object[] parametros = new Object[]{id_empleado};
         return dbCoreService.obtenerElemento(SP_EMPLEADO_DELETE_X_ID_EMPLEADO, parametros);
     }
+    public ArrayList<HashMap<String, Object>> obtenerTiposDocumentos() throws SQLException {
+        Object[] parametros = new Object[]{};
+        return dbCoreService.obtenerElementos(SP_TIPOSDOCUMENTO_SELECT, parametros);
+    }
+    public ArrayList<HashMap<String, Object>> obtenerCiudades(int id_depto) throws SQLException {
+        Object[] parametros = new Object[]{id_depto};
+        return dbCoreService.obtenerElementos(SP_CIUDAD_SELECT, parametros);
+    }
+    public ArrayList<HashMap<String, Object>> obtenerDepartamentos() throws SQLException {
+        Object[] parametros = new Object[]{};
+        return dbCoreService.obtenerElementos(SP_DEPTO_PROVINCIA_SELECT, parametros);
+    }
 }

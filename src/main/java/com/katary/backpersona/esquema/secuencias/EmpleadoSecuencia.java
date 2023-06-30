@@ -68,5 +68,14 @@ public class EmpleadoSecuencia {
     public HashMap<String, Object> eliminarEmpleado(int id_empleado) throws SQLException {
         return empleadoDB.eliminarEmpleado(id_empleado);
     }
+    public ArrayList<HashMap<String, Object>> obtenerTiposDocumentos() throws SQLException {
+        return empleadoDB.obtenerTiposDocumentos();
+    }
+    public ArrayList<HashMap<String, Object>> obtenerCiudades(int id_depto) throws SQLException {
+        return empleadoDB.obtenerCiudades(id_depto);
+    }
+    public ArrayList<HashMap<String, Object>> obtenerDepartamentos() throws SQLException {
+        return empleadoDB.obtenerDepartamentos();
+    }
 }
 
