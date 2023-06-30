@@ -9,4 +9,13 @@ public class Env {
     // LOGS
     public static final String PERSONA_ENVIRONMENT = System.getenv("PERSONA_ENVIRONMENT") == null ? "" : System.getenv("PERSONA_ENVIRONMENT");
 
+    //SFTP
+    public static final String PERSONA_SFTP_HOST = System.getenv("PERSONA_SFTP_HOST");
+    public static final String PERSONA_SFTP_USERNAME = System.getenv("PERSONA_SFTP_USERNAME");
+    public static final String PERSONA_SFTP_PASSWORD = System.getenv("PERSONA_SFTP_PASSWORD");
+    public static final String PERSONA_SFTP_RUTA_REMOTA = System.getenv("PERSONA_SFTP_RUTA_REMOTA");
+    public static final String PERSONA_SFTP_SSHHOSTKEY = System.getenv("PERSONA_SFTP_SSHHOSTKEY");
+
+
+
 }

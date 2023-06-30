@@ -35,6 +35,9 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.dslplatform/dsl-json-java8
 	implementation group: 'com.dslplatform', name: 'dsl-json-java8', version: '1.9.9'
+
+	// https://mvnrepository.com/artifact/com.jcraft/jsch
+	implementation group: 'com.jcraft', name: 'jsch', version: '0.1.55'
 }
 bootRun {
 	args += ["--server.port=8081"]
