@@ -14,8 +14,8 @@ public class EntidadDB {
         this.dbCoreService = dbCoreService;
     }
 
-    public ArrayList<HashMap<String, Object>> obtenerEntidades() throws SQLException {
-        Object[] parametros = new Object[]{};
-        return dbCoreService.obtenerElementos(SP_ENTIDAD_SELECT, parametros);
+    public ArrayList<HashMap<String, Object>> obtenerEntidades(String tipo) throws SQLException {
+        Object[] parametros = new Object[]{tipo};
+        return dbCoreService.obtenerElementos(SP_ENTIDAD_SELECT_X_TIPO, parametros);
     }
 }

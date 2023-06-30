@@ -26,14 +26,14 @@ public class EntidadController {
 
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/entidades",
+            value = "/v1/entidades/{tipo}",
             method = RequestMethod.GET
     )
-    public void obtenerEntidades(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void obtenerEntidades(HttpServletRequest req, HttpServletResponse resp,@PathVariable String tipo) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
-            ArrayList<HashMap<String, Object>> success = entidadSecuencia.obtenerEntidades();
+            ArrayList<HashMap<String, Object>> success = entidadSecuencia.obtenerEntidades(tipo);
             if (success.isEmpty()) {
                 fw.sendNotFound(resp);
                 return;

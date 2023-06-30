@@ -14,7 +14,7 @@ public class EntidadSecuencia {
         this.entidadDB = entidadDB;
     }
 
-    public ArrayList<HashMap<String, Object>> obtenerEntidades() throws SQLException {
-        return entidadDB.obtenerEntidades();
+    public ArrayList<HashMap<String, Object>> obtenerEntidades(String tipo) throws SQLException {
+        return entidadDB.obtenerEntidades(tipo);
     }
 }
