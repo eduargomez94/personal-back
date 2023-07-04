@@ -214,14 +214,56 @@ public class EmpleadoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/departamentos",
+            value = "/v1/departamentos/{id_pais}",
             method = RequestMethod.GET
     )
-    public void obtenerDepartamentos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void obtenerDepartamentos(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_pais) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
-            ArrayList<HashMap<String, Object>> success = empleadoSecuencia.obtenerDepartamentos();
+            ArrayList<HashMap<String, Object>> success = empleadoSecuencia.obtenerDepartamentos(id_pais);
+            if (success.isEmpty()) {
+                fw.sendNotFound(resp);
+                return;
+            }
+            response.put("data", success);
+            fw.sendJSON(resp, response);
+        } catch (Exception throwables) {
+            fw.sendErrorJSON(resp, throwables, null);
+            if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
+        }
+    }
+    @CrossOrigin
+    @RequestMapping(
+            value = "/v1/pais",
+            method = RequestMethod.GET
+    )
+    public void obtenerPais(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            ArrayList<HashMap<String, Object>> success = empleadoSecuencia.obtenerPais();
+            if (success.isEmpty()) {
+                fw.sendNotFound(resp);
+                return;
+            }
+            response.put("data", success);
+            fw.sendJSON(resp, response);
+        } catch (Exception throwables) {
+            fw.sendErrorJSON(resp, throwables, null);
+            if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
+        }
+    }
+    @CrossOrigin
+    @RequestMapping(
+            value = "/v1/tipo-contratos",
+            method = RequestMethod.GET
+    )
+    public void obtenerTipoContratos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            ArrayList<HashMap<String, Object>> success = empleadoSecuencia.obtenerTipoContratos();
             if (success.isEmpty()) {
                 fw.sendNotFound(resp);
                 return;

@@ -80,8 +80,16 @@ public class EmpleadoDB {
         Object[] parametros = new Object[]{id_depto};
         return dbCoreService.obtenerElementos(SP_CIUDAD_SELECT, parametros);
     }
-    public ArrayList<HashMap<String, Object>> obtenerDepartamentos() throws SQLException {
-        Object[] parametros = new Object[]{};
+    public ArrayList<HashMap<String, Object>> obtenerDepartamentos(int id_pais) throws SQLException {
+        Object[] parametros = new Object[]{id_pais};
         return dbCoreService.obtenerElementos(SP_DEPTO_PROVINCIA_SELECT, parametros);
+    }
+    public ArrayList<HashMap<String, Object>> obtenerPais() throws SQLException {
+        Object[] parametros = new Object[]{};
+        return dbCoreService.obtenerElementos(SP_PAIS_SELECT, parametros);
+    }
+    public ArrayList<HashMap<String, Object>> obtenerTipoContratos() throws SQLException {
+        Object[] parametros = new Object[]{};
+        return dbCoreService.obtenerElementos(SP_TIPO_CONTRATO_SELECT, parametros);
     }
 }

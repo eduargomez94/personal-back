@@ -162,5 +162,26 @@ public class ProyectoController {
         fw.sendJSON(resp, response);
 
     }
+    @CrossOrigin
+    @RequestMapping(
+            value = "/v1/tipo-proyectos",
+            method = RequestMethod.GET
+    )
+    public void obtenerTipoProyectos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            ArrayList<HashMap<String, Object>> success = proyectoSecuencia.obtenerTipoProyectos();
+            if (success.isEmpty()) {
+                fw.sendNotFound(resp);
+                return;
+            }
+            response.put("data", success);
+            fw.sendJSON(resp, response);
+        } catch (Exception throwables) {
+            fw.sendErrorJSON(resp, throwables, null);
+            if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
+        }
+    }
 
 }	  

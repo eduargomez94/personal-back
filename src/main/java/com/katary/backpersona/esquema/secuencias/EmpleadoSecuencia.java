@@ -74,8 +74,14 @@ public class EmpleadoSecuencia {
     public ArrayList<HashMap<String, Object>> obtenerCiudades(int id_depto) throws SQLException {
         return empleadoDB.obtenerCiudades(id_depto);
     }
-    public ArrayList<HashMap<String, Object>> obtenerDepartamentos() throws SQLException {
-        return empleadoDB.obtenerDepartamentos();
+    public ArrayList<HashMap<String, Object>> obtenerDepartamentos(int id_pais) throws SQLException {
+        return empleadoDB.obtenerDepartamentos(id_pais);
+    }
+    public ArrayList<HashMap<String, Object>> obtenerPais() throws SQLException {
+        return empleadoDB.obtenerPais();
+    }
+    public ArrayList<HashMap<String, Object>> obtenerTipoContratos() throws SQLException {
+        return empleadoDB.obtenerTipoContratos();
     }
 }
 

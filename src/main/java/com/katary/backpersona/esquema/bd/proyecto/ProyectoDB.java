@@ -61,6 +61,10 @@ public class ProyectoDB {
         Object[] parametros = new Object[]{id_proyecto};
         return dbCoreService.obtenerElemento(SP_PROYECTO_DELETE_X_ID_PROYECTO, parametros);
     }
+    public ArrayList<HashMap<String, Object>> obtenerTipoProyectos() throws SQLException {
+        Object[] parametros = new Object[]{};
+        return dbCoreService.obtenerElementos(SP_TIPO_PROYECTO_SELECT, parametros);
+    }
 
 
 }	  
