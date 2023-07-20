@@ -1,4 +1,5 @@
 package com.katary.backpersona.controladores;
+
 import com.katary.backpersona.esquema.io.EmpleadoIn;
 import com.katary.backpersona.esquema.secuencias.EmpleadoSecuencia;
 import com.katary.backpersona.esquema.secuencias.seguridad.SeguridadService;
@@ -19,12 +20,14 @@ public class EmpleadoController {
     private final FrameworkService fw;
     private final SeguridadService seguridadService;
     private final EmpleadoSecuencia empleadoSecuencia;
+
     @Autowired
     public EmpleadoController(FrameworkService fw, SeguridadService seguridadService, EmpleadoSecuencia empleadoSecuencia) {
         this.fw = fw;
         this.seguridadService = seguridadService;
         this.empleadoSecuencia = empleadoSecuencia;
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/empleado",
@@ -39,27 +42,7 @@ public class EmpleadoController {
         }
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            int id = empleadoSecuencia.crearEmpleado(
-                    body.getId_empleado(),
-                    body.getId_tipo_doc(),
-                    body.getNo_documento(),
-                    body.getApellidos(),
-                    body.getNombres(),
-                    body.getEmail_personal(),
-                    body.getEmail_corporativo(),
-                    body.getCelular(),
-                    body.getDireccion(),
-                    body.getId_ciudad(),
-                    body.getHoja_vida(),
-                    body.getFecha_cumpleanos(),
-                    body.getEntidad_salud(),
-                    body.getEntidad_pension(),
-                    body.getEntidad_ARL(),
-                    body.getEstado(),
-                    body.getFotografia(),
-                    body.getFecha_aniversario(),
-                    body.getPerfil_tecnico()
-                    );
+            int id = empleadoSecuencia.crearEmpleado(body);
             response.put("id_empleado", id);
         } catch (Exception throwables) {
             throwables.printStackTrace();
@@ -69,6 +52,7 @@ public class EmpleadoController {
         }
         fw.sendJSON(resp, response);
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/empleado/{id_empleado}",
@@ -83,27 +67,7 @@ public class EmpleadoController {
         }
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            int codigo = empleadoSecuencia.actualizarEmpleado(
-                    id_empleado,
-                    body.getId_tipo_doc(),
-                    body.getNo_documento(),
-                    body.getApellidos(),
-                    body.getNombres(),
-                    body.getEmail_personal(),
-                    body.getEmail_corporativo(),
-                    body.getCelular(),
-                    body.getDireccion(),
-                    body.getId_ciudad(),
-                    body.getHoja_vida(),
-                    body.getFecha_cumpleanos(),
-                    body.getEntidad_salud(),
-                    body.getEntidad_pension(),
-                    body.getEntidad_ARL(),
-                    body.getEstado(),
-                    body.getFotografia(),
-                    body.getFecha_aniversario(),
-                    body.getPerfil_tecnico()
-                    );
+            int codigo = empleadoSecuencia.actualizarEmpleado(id_empleado, body);
             response.put("exito", codigo);
         } catch (Exception throwables) {
             throwables.printStackTrace();
@@ -112,6 +76,7 @@ public class EmpleadoController {
         }
         fw.sendJSON(resp, response);
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/empleados",
@@ -132,12 +97,13 @@ public class EmpleadoController {
             if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
         }
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/empleado/{id_empleado}",
             method = RequestMethod.GET
     )
-    public void obtenerEmpleado(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_empleado
+    public void obtenerEmpleado(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_empleado
 
     ) throws IOException {
         HashMap<String, Object> response = new HashMap<>();
@@ -154,6 +120,7 @@ public class EmpleadoController {
             if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
         }
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/empleado/{id_empleado}",
@@ -170,6 +137,7 @@ public class EmpleadoController {
         }
         fw.sendJSON(resp, response);
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/tipos-documentos",
@@ -191,12 +159,13 @@ public class EmpleadoController {
             if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
         }
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/ciudades/{id_depto}",
             method = RequestMethod.GET
     )
-    public void obtenerCiudades(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_depto) throws IOException {
+    public void obtenerCiudades(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_depto) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
@@ -212,12 +181,13 @@ public class EmpleadoController {
             if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
         }
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/departamentos/{id_pais}",
             method = RequestMethod.GET
     )
-    public void obtenerDepartamentos(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_pais) throws IOException {
+    public void obtenerDepartamentos(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_pais) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
@@ -233,6 +203,7 @@ public class EmpleadoController {
             if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
         }
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/pais",
@@ -254,6 +225,7 @@ public class EmpleadoController {
             if (Env.PERSONA_ENVIRONMENT.equals("DEBUG")) response.put("error", throwables.getMessage());
         }
     }
+
     @CrossOrigin
     @RequestMapping(
             value = "/v1/tipo-contratos",

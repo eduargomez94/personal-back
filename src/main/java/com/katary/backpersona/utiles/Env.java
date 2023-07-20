@@ -14,8 +14,4 @@ public class Env {
     public static final String PERSONA_SFTP_USERNAME = System.getenv("PERSONA_SFTP_USERNAME");
     public static final String PERSONA_SFTP_PASSWORD = System.getenv("PERSONA_SFTP_PASSWORD");
     public static final String PERSONA_SFTP_RUTA_REMOTA = System.getenv("PERSONA_SFTP_RUTA_REMOTA");
-    public static final String PERSONA_SFTP_SSHHOSTKEY = System.getenv("PERSONA_SFTP_SSHHOSTKEY");
-
-
-
 }

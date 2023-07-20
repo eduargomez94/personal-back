@@ -22,8 +22,14 @@ public class EmpleadoIn {
         private String fotografia;
         private String fecha_aniversario;
         private String perfil_tecnico;
+        private String file_foto;
+        private String url_fotografia;
+        private String file_hoja;
+        private String url_hoja_vida;
+
         public EmpleadoPOST() {
         }
+
         public boolean esInValido() {
             return  no_documento == null || no_documento.isEmpty()
                     || apellidos == null || apellidos.isEmpty()
@@ -32,10 +38,8 @@ public class EmpleadoIn {
                     || email_corporativo == null || email_corporativo.isEmpty()
                     || celular == null || celular.isEmpty()
                     || direccion == null || direccion.isEmpty()
-                    || hoja_vida == null || hoja_vida.isEmpty()
                     || fecha_cumpleanos == null || fecha_cumpleanos.isEmpty()
                     || estado == null || estado.isEmpty()
-                    || fotografia == null || fotografia.isEmpty()
                     || fecha_aniversario == null || fecha_aniversario.isEmpty()
                     || perfil_tecnico == null || perfil_tecnico.isEmpty()
                     || id_tipo_doc == 0
@@ -194,6 +198,38 @@ public class EmpleadoIn {
         public void setPerfil_tecnico(String perfil_tecnico) {
             this.perfil_tecnico = perfil_tecnico;
         }
+
+        public String getFile_foto() {
+            return file_foto;
+        }
+
+        public void setFile_foto(String file_foto) {
+            this.file_foto = file_foto;
+        }
+
+        public String getUrl_fotografia() {
+            return url_fotografia;
+        }
+
+        public void setUrl_fotografia(String url_fotografia) {
+            this.url_fotografia = url_fotografia;
+        }
+
+        public String getFile_hoja() {
+            return file_hoja;
+        }
+
+        public void setFile_hoja(String file_hoja) {
+            this.file_hoja = file_hoja;
+        }
+
+        public String getUrl_hoja_vida() {
+            return url_hoja_vida;
+        }
+
+        public void setUrl_hoja_vida(String url_hoja_vida) {
+            this.url_hoja_vida = url_hoja_vida;
+        }
     }
     @CompiledJson
     public static class EmpleadoPUT {
@@ -216,6 +252,10 @@ public class EmpleadoIn {
         private String fotografia;
         private String fecha_aniversario;
         private String perfil_tecnico;
+        private String file_foto;
+        private String url_fotografia;
+        private String file_hoja;
+        private String url_hoja_vida;
 
         public EmpleadoPUT() {
         }
@@ -374,6 +414,38 @@ public class EmpleadoIn {
 
         public void setPerfil_tecnico(String perfil_tecnico) {
             this.perfil_tecnico = perfil_tecnico;
+        }
+
+        public String getFile_foto() {
+            return file_foto;
+        }
+
+        public void setFile_foto(String file_foto) {
+            this.file_foto = file_foto;
+        }
+
+        public String getUrl_fotografia() {
+            return url_fotografia;
+        }
+
+        public void setUrl_fotografia(String url_fotografia) {
+            this.url_fotografia = url_fotografia;
+        }
+
+        public String getFile_hoja() {
+            return file_hoja;
+        }
+
+        public void setFile_hoja(String file_hoja) {
+            this.file_hoja = file_hoja;
+        }
+
+        public String getUrl_hoja_vida() {
+            return url_hoja_vida;
+        }
+
+        public void setUrl_hoja_vida(String url_hoja_vida) {
+            this.url_hoja_vida = url_hoja_vida;
         }
     }
 }
