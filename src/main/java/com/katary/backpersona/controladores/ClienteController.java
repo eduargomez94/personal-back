@@ -1,6 +1,6 @@
 package com.katary.backpersona.controladores;
-import com.katary.backpersona.esquema.io.CargoIn;
-import com.katary.backpersona.esquema.secuencias.CargoSecuencia;
+import com.katary.backpersona.esquema.io.ClienteIn;
+import com.katary.backpersona.esquema.secuencias.ClienteSecuencia;
 import com.katary.backpersona.esquema.secuencias.seguridad.SeguridadService;
 import com.katary.backpersona.utiles.Env;
 import com.katary.backpersona.utiles.FrameworkService;
@@ -15,27 +15,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
-public class CargoController {
+public class ClienteController {
     private final FrameworkService fw;
     private final SeguridadService seguridadService;
-    private final CargoSecuencia cargoSecuencia;
+    private final ClienteSecuencia clienteSecuencia;
     @Autowired
-    public CargoController(FrameworkService fw, SeguridadService seguridadService, CargoSecuencia cargoSecuencia) {
+    public ClienteController(FrameworkService fw, SeguridadService seguridadService, ClienteSecuencia clienteSecuencia) {
         this.fw = fw;
         this.seguridadService = seguridadService;
-        this.cargoSecuencia = cargoSecuencia;
+        this.clienteSecuencia = clienteSecuencia;
     }
 
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargos",
+            value = "/v1/clientes",
             method = RequestMethod.GET
     )
-    public void obtenerCargos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void obtenerClientes(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
-            ArrayList<HashMap<String, Object>> success = cargoSecuencia.obtenerCargos();
+            ArrayList<HashMap<String, Object>> success = clienteSecuencia.obtenerClientes();
             if (success.isEmpty()) {
                 fw.sendNotFound(resp);
                 return;
@@ -49,16 +49,16 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo/{id_cargo}",
+            value = "/v1/cliente/{id_cliente}",
             method = RequestMethod.GET
     )
-    public void obtenerCargo(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_cargo
+    public void obtenerCliente(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_cliente
 
     ) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
-            HashMap<String, Object> success = cargoSecuencia.obtenerCargo(id_cargo);
+            HashMap<String, Object> success = clienteSecuencia.obtenerCliente(id_cliente);
             if (success.isEmpty()) {
                 fw.sendNotFound(resp);
                 return;
@@ -72,25 +72,34 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo",
+            value = "/v1/cliente",
             method = RequestMethod.POST,
             consumes = "application/json"
     )
-    public void crearCargo(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void crearCliente(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        CargoIn.CargoPOST body = fw.getBody(req, CargoIn.CargoPOST.class);
+        ClienteIn.ClientePOST body = fw.getBody(req, ClienteIn.ClientePOST.class);
         if (body == null || body.esInValido()) {
             fw.sendBadRequestJSON(resp, body);
             return;
         }
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            int id = cargoSecuencia.crearCargo(
-                    body.getId_cargo(),
-                    body.getDescripcion_cargo(),
-                    body.getId_categoria()
+            int id = clienteSecuencia.crearCliente(
+                    body.getId_cliente(),
+                    body.getTipo_documento(),
+                    body.getNo_documento(),
+                    body.getNombre_razonsocial(),
+                    body.getId_ciudad(),
+                    body.getDireccion(),
+                    body.getTelefono_ppal(),
+                    body.getContacto(),
+                    body.getEmail(),
+                    body.getPagina_web(),
+                    body.getLogo(),
+                    body.getEstado()
                     );
-            response.put("id_cargo", id);
+            response.put("id_cliente", id);
         } catch (Exception throwables) {
             throwables.printStackTrace();
             resp.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -101,23 +110,32 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo/{id_cargo}",
+            value = "/v1/cliente/{id_cliente}",
             method = RequestMethod.PUT,
             consumes = "application/json"
     )
-    public void actualizarCargo(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_cargo) throws IOException {
+    public void actualizarCliente(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_cliente) throws IOException {
 
-        CargoIn.CargoPUT body = fw.getBody(req, CargoIn.CargoPUT.class);
+        ClienteIn.ClientePUT body = fw.getBody(req, ClienteIn.ClientePUT.class);
         if (body == null || body.esInValido()) {
             fw.sendBadRequestJSON(resp, body);
             return;
         }
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            int codigo = cargoSecuencia.actualizarCargo(
-                    id_cargo,
-                    body.getDescripcion_cargo(),
-                    body.getId_categoria()
+            int codigo = clienteSecuencia.actualizarCliente(
+                    id_cliente,
+                    body.getTipo_documento(),
+                    body.getNo_documento(),
+                    body.getNombre_razonsocial(),
+                    body.getId_ciudad(),
+                    body.getDireccion(),
+                    body.getTelefono_ppal(),
+                    body.getContacto(),
+                    body.getEmail(),
+                    body.getPagina_web(),
+                    body.getLogo(),
+                    body.getEstado()
                     );
             response.put("exito", codigo);
 
@@ -130,14 +148,14 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo/{id_cargo}",
+            value = "/v1/cliente/{id_cliente}",
             method = RequestMethod.DELETE
     )
-    public void eliminarCargo(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_cargo) throws IOException {
+    public void eliminarCliente(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_cliente) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            response = cargoSecuencia.eliminarCargo(id_cargo);
+            response = clienteSecuencia.eliminarCliente(id_cliente);
         } catch (Exception throwables) {
             throwables.printStackTrace();
             resp.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);

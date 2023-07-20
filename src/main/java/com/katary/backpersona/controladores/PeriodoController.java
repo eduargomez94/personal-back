@@ -1,6 +1,6 @@
 package com.katary.backpersona.controladores;
-import com.katary.backpersona.esquema.io.CargoIn;
-import com.katary.backpersona.esquema.secuencias.CargoSecuencia;
+import com.katary.backpersona.esquema.io.PeriodoIn;
+import com.katary.backpersona.esquema.secuencias.PeriodoSecuencia;
 import com.katary.backpersona.esquema.secuencias.seguridad.SeguridadService;
 import com.katary.backpersona.utiles.Env;
 import com.katary.backpersona.utiles.FrameworkService;
@@ -15,27 +15,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
-public class CargoController {
+public class PeriodoController {
     private final FrameworkService fw;
     private final SeguridadService seguridadService;
-    private final CargoSecuencia cargoSecuencia;
+    private final PeriodoSecuencia periodoSecuencia;
     @Autowired
-    public CargoController(FrameworkService fw, SeguridadService seguridadService, CargoSecuencia cargoSecuencia) {
+    public PeriodoController(FrameworkService fw, SeguridadService seguridadService, PeriodoSecuencia periodoSecuencia) {
         this.fw = fw;
         this.seguridadService = seguridadService;
-        this.cargoSecuencia = cargoSecuencia;
+        this.periodoSecuencia = periodoSecuencia;
     }
 
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargos",
+            value = "/v1/periodos-nomina",
             method = RequestMethod.GET
     )
-    public void obtenerCargos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void obtenerPeriodos(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
-            ArrayList<HashMap<String, Object>> success = cargoSecuencia.obtenerCargos();
+            ArrayList<HashMap<String, Object>> success = periodoSecuencia.obtenerPeriodosNominas();
             if (success.isEmpty()) {
                 fw.sendNotFound(resp);
                 return;
@@ -49,16 +49,16 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo/{id_cargo}",
+            value = "/v1/periodo-nomina/{id_periodo}",
             method = RequestMethod.GET
     )
-    public void obtenerCargo(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_cargo
+    public void obtenerPeriodo(HttpServletRequest req, HttpServletResponse resp,@PathVariable int id_periodo
 
     ) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>();
         try {
-            HashMap<String, Object> success = cargoSecuencia.obtenerCargo(id_cargo);
+            HashMap<String, Object> success = periodoSecuencia.obtenerPeriodosNomina(id_periodo);
             if (success.isEmpty()) {
                 fw.sendNotFound(resp);
                 return;
@@ -72,25 +72,28 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo",
+            value = "/v1/periodo-nomina",
             method = RequestMethod.POST,
             consumes = "application/json"
     )
-    public void crearCargo(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void crearPeriodo(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        CargoIn.CargoPOST body = fw.getBody(req, CargoIn.CargoPOST.class);
+        PeriodoIn.PeriodoPOST body = fw.getBody(req, PeriodoIn.PeriodoPOST.class);
         if (body == null || body.esInValido()) {
             fw.sendBadRequestJSON(resp, body);
             return;
         }
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            int id = cargoSecuencia.crearCargo(
-                    body.getId_cargo(),
-                    body.getDescripcion_cargo(),
-                    body.getId_categoria()
-                    );
-            response.put("id_cargo", id);
+            int id = periodoSecuencia.crearPeriodosNomina(
+                    body.getId_periodo(),
+                    body.getAnio(),
+                    body.getMes(),
+                    body.getFecha_inicial(),
+                    body.getFecha_final()
+
+            );
+            response.put("id_periodo", id);
         } catch (Exception throwables) {
             throwables.printStackTrace();
             resp.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -101,24 +104,27 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo/{id_cargo}",
+            value = "/v1/periodo-nomina/{id_periodo}",
             method = RequestMethod.PUT,
             consumes = "application/json"
     )
-    public void actualizarCargo(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_cargo) throws IOException {
+    public void actualizarPeriodo(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_periodo) throws IOException {
 
-        CargoIn.CargoPUT body = fw.getBody(req, CargoIn.CargoPUT.class);
+        PeriodoIn.PeriodoPUT body = fw.getBody(req, PeriodoIn.PeriodoPUT.class);
         if (body == null || body.esInValido()) {
             fw.sendBadRequestJSON(resp, body);
             return;
         }
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            int codigo = cargoSecuencia.actualizarCargo(
-                    id_cargo,
-                    body.getDescripcion_cargo(),
-                    body.getId_categoria()
-                    );
+            int codigo = periodoSecuencia.actualizarPeriodosNomina(
+                    id_periodo,
+                    body.getAnio(),
+                    body.getMes(),
+                    body.getFecha_inicial(),
+                    body.getFecha_final()
+
+            );
             response.put("exito", codigo);
 
         } catch (Exception throwables) {
@@ -130,14 +136,14 @@ public class CargoController {
     }
     @CrossOrigin
     @RequestMapping(
-            value = "/v1/cargo/{id_cargo}",
+            value = "/v1/periodo-nomina/{id_periodo}",
             method = RequestMethod.DELETE
     )
-    public void eliminarCargo(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_cargo) throws IOException {
+    public void eliminarPeriodo(HttpServletRequest req, HttpServletResponse resp, @PathVariable int id_periodo) throws IOException {
 
         HashMap<String, Object> response = new HashMap<>(4);
         try {
-            response = cargoSecuencia.eliminarCargo(id_cargo);
+            response = periodoSecuencia.eliminarPeriodosNomina(id_periodo);
         } catch (Exception throwables) {
             throwables.printStackTrace();
             resp.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);

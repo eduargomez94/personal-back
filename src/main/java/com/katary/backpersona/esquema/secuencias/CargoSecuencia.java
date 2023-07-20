@@ -17,5 +17,25 @@ public class CargoSecuencia {
     public ArrayList<HashMap<String, Object>> obtenerCargos() throws SQLException {
         return cargoDB.obtenerCargos();
     }
+    public HashMap<String, Object> obtenerCargo(int id_cargo) throws SQLException {
+        return cargoDB.obtenerCargo(id_cargo);
+    }
+    public int crearCargo(
+            int id_cargo,
+            String descripcion_cargo,
+            int id_categoria
+            ) throws SQLException {
+        return cargoDB.crearCargo(id_cargo,descripcion_cargo,id_categoria);
+    }
+    public int actualizarCargo(
+            int id_cargo,
+            String descripcion_cargo,
+            int id_categoria
+            ) throws SQLException {
+        return cargoDB.actualizarCargo(id_cargo,descripcion_cargo,id_categoria);
+    }
+    public HashMap<String, Object> eliminarCargo(int id_cargo) throws SQLException {
+        return cargoDB.eliminarCargo(id_cargo);
+    }
 
 }	  
